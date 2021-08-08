@@ -586,7 +586,6 @@ loader.load( 'character2.glb', function ( object ) {
   mesh.add(player);
 
 
-
   var lightPlayer = new THREE.PointLight(new THREE.Color('pink'), -1, 5);
   mesh.add(lightPlayer);
 
@@ -600,10 +599,48 @@ loader.load( 'character2.glb', function ( object ) {
 
 });
 
+var loader3 = new THREE.GLTFLoader();
+loader.load( 'character3.glb', function ( object ) {
+   object.scene.traverse( function( node ) {
+      if ( node instanceof THREE.Mesh ) {
+        node.castShadow = true;
+        node.material.side = THREE.DoubleSide;
+      }
+  });
+
+  var player3 = object.scene;
+  player3.position.set(3, -0.3, 0 );
+  player3.scale.set(.2,.2,.2);
+  player3.rotateY(1);
+  mesh.add(player3);
 
 
+  var lightPlayer3 = new THREE.PointLight(new THREE.Color('pink'), -1, 5);
+  mesh.add(lightPlayer3);
+
+});
 
 
+var loader4 = new THREE.GLTFLoader();
+loader.load( 'character4.glb', function ( object ) {
+   object.scene.traverse( function( node ) {
+      if ( node instanceof THREE.Mesh ) {
+        node.castShadow = true;
+        node.material.side = THREE.DoubleSide;
+      }
+  });
+
+  var player4 = object.scene;
+  player4.position.set(-8, -0.3, 0 );
+  player4.scale.set(.2,.2,.2);
+  player4.rotateY(-1);
+  mesh.add(player4);
+
+
+  var lightPlayer4 = new THREE.PointLight(new THREE.Color('pink'), -1, 5);
+  mesh.add(lightPlayer4);
+
+});
 
 //===================================================== add Terrain
 var sizeX = 128, sizeY = 128, minHeight = 0, maxHeight = 60;
