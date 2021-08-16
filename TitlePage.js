@@ -19,7 +19,7 @@ class CannonHelper{
         const light = new THREE.DirectionalLight( 0xfc03d3, 5, 1 );
         light.position.set( 3, 10, 4 );
         light.target.position.set( 0, 0, 0 );
-        light.castShadow = true;
+        light.castShadow = false;
 
         this.sun = light;
         this.scene.add(light);
@@ -375,7 +375,7 @@ bgTexture.wrapT = THREE.MirroredRepeatWrapping;
 
 
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, .01, 100000 );
-camera.position.set( 1, 1, -1 );
+camera.position.set( 1, 1, -1.5 );
 camera.lookAt( scene.position );
 
 
@@ -421,12 +421,6 @@ document.body.appendChild( renderer.domElement );
 
 
 
-  //===================================================== add front & back lighting
- var light = new THREE.DirectionalLight( new THREE.Color("#faa2fa"), 3);
- light.position.set(1,1,1).normalize();
- scene.add(light);
-
-
 
 
 
@@ -443,6 +437,12 @@ window.addEventListener("resize", function() {
 });
 
 
+//===================================================== add front & back lighting
+var light = new THREE.DirectionalLight( new THREE.Color("#faa2fa"), 3);
+light.caseShadow=false;
+light.position.set(1,1,1).normalize();
+scene.add(light);
+
 
 //========================================================== effects
 var SCALE = 2;
@@ -451,23 +451,26 @@ var hTilt = new THREE.ShaderPass(THREE.HorizontalTiltShiftShader);
 hTilt.enabled = false;
 hTilt.uniforms.h.value = 4 / (SCALE * window.innerHeight);
 
+
+
 var renderPass = new THREE.RenderPass(scene, camera);
 var effectCopy = new THREE.ShaderPass(THREE.CopyShader);
-// var glitchPass = new THREE.GlitchPass(64);
+
 effectCopy.renderToScreen = true;
-// glitchPass.renderToScreen = true;
+
 
 
 const composer = new THREE.EffectComposer(renderer);
 composer.addPass(renderPass);
 composer.addPass(hTilt);
 composer.addPass(effectCopy);
-// composer.addPass(glitchPass);
 
 
 var controls = new function() {
   this.hTilt = false;
   this.hTiltR = 0.5;
+
+
   this.onChange = function() {
     hTilt.enabled = controls.hTilt;
     hTilt.uniforms.r.value = controls.hTiltR;
@@ -481,7 +484,7 @@ gui.add(controls, 'hTiltR', 0, 1).onChange(controls.onChange);
 
 //activate tilt effect
 document.querySelector('.dg .c input[type="checkbox"]').click();
-dat.GUI.toggleHide();
+// dat.GUI.toggleHide();
 
 
 
@@ -540,8 +543,11 @@ Object.defineProperties(THREE.Object3D.prototype, {
 });
 
 
-
-
+//========================================================add 3D buttons
+//
+// var aboutButton = makeElementObject('div', 300, 300);
+// aboutButton.css3DObject.element.style.border = '1px solid pink';
+// aboutButton.css3DObject.element.textContent = "About";
 
 
 
@@ -556,10 +562,12 @@ scene.add( mesh );
 
 
 var light = new THREE.DirectionalLight( new THREE.Color('#faa2fa'), .5 );
-light.position.set( 0, 1, 0 );
-light.castShadow = true;
+light.position.set( 1, 1, 1 );
+light.castShadow = false;
 light.target = mesh;//shadow will follow mesh
 mesh.add( light );
+
+
 
 
 
@@ -723,7 +731,7 @@ var img2matrix = function () {
 
 
 
-//can add an array of things
+//can add an array of things // url
 var check;
 Promise.all( [
   img2matrix.fromUrl( '0009.png', sizeX, sizeY, minHeight, maxHeight )(),
@@ -1045,7 +1053,7 @@ function joystickCallback( forward, turn ){
 }
 
 function updateDrive(forward=js.forward, turn=js.turn){
-  const maxSteerVal = 0.5;
+  const maxSteerVal = 0.2;
   const maxForce = .15;
   const brakeForce = 10;
 
@@ -1072,7 +1080,7 @@ scene.add(followCam);
 followCam.parent = mesh;
 function updateCamera(){
   if(followCam){
-      camera.position.lerp(followCam.getWorldPosition(new THREE.Vector3()), 0.01);
+      camera.position.lerp(followCam.getWorldPosition(new THREE.Vector3()), 0.01); //catching up to model
       camera.lookAt(mesh.position.x, mesh.position.y +0.6 , mesh.position.z);
   }
 }
@@ -1081,11 +1089,19 @@ function updateCamera(){
 //===================================================== animate
 var clock = new THREE.Clock();
 var lastTime;
+
+
+
+
 (function animate() {
     requestAnimationFrame( animate );
     updateCamera();
     updateDrive();
-    renderer.render( scene, camera );
+
+    renderer.render(scene, camera );
+    // renderer.render(scene2, camera2);
+
+
     composer.render(clock.getDelta());
 
     let delta = clock.getDelta();
@@ -1127,3 +1143,69 @@ var lastTime;
 
 
 })();
+
+
+//-----------------------------------------------------------------scene 2
+// let renderer2;
+// let bg2Texture;
+// let bg2Width;
+// let bg2Height;
+//
+// var scene2 = new THREE.Scene();
+// bgTexture = loader.load('bg1.jpg');
+//
+//
+// scene2.background = bg2Texture;
+// // bg2Texture.wrapS = THREE.MirroredRepeatWrapping;
+// // bg2Texture.wrapT = THREE.MirroredRepeatWrapping;
+//
+//
+// var camera2 = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, .01, 100000 );
+// camera2.position.set( 1, 1, -1 );
+// camera2.lookAt( scene2.position );
+//
+//
+//
+// renderer = new THREE.WebGLRenderer( { powerPreference: "high-performance", antialias: false, alpha: true, stencil: false, depth: false } );
+// renderer.setSize( window.innerWidth, window.innerHeight );
+// renderer.setClearColor( 0x000000, 0);
+// renderer.shadowMap.enabled = true;
+// renderer.shadowMapSoft = true; // Shadow
+// renderer.shadowMapType = THREE.PCFShadowMap; //Shadow
+// document.body.appendChild( renderer.domElement );
+
+
+//
+// let renderer;
+// let mesh;
+// let raycastHelperMesh;
+// let plane;
+// let uniforms;
+// let bgTexture;
+// let bgWidth;
+// let bgHeight;
+//
+// var loader = new THREE.TextureLoader();
+// var scene = new THREE.Scene();
+// bgTexture = loader.load('bg1.jpg');
+//
+//
+// scene.background = bgTexture;
+// bgTexture.wrapS = THREE.MirroredRepeatWrapping;
+// bgTexture.wrapT = THREE.MirroredRepeatWrapping;
+//
+//
+// var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, .01, 100000 );
+// camera.position.set( 1, 1, -1 );
+// camera.lookAt( scene.position );
+//
+//
+//
+// renderer = new THREE.WebGLRenderer( { powerPreference: "high-performance", antialias: false, alpha: true, stencil: false, depth: false } );
+// renderer.setSize( window.innerWidth, window.innerHeight );
+// renderer.setClearColor( 0x000000, 0);
+// renderer.shadowMap.enabled = true;
+// renderer.shadowMapSoft = true; // Shadow
+// renderer.shadowMapType = THREE.PCFShadowMap; //Shadow
+// document.body.appendChild( renderer.domElement );
+//
