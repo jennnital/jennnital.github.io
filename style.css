@@ -123,49 +123,112 @@
     transform: translateY(-2px);
   }
   
-  /* Bio Page Layout */
-  .bio-section {
-    min-height: 100vh;
-    background-color: black;
+  /* Info Page Layout */
+  .info-page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 8rem 2rem 6rem;
+  }
+
+  .info-section {
+    margin-bottom: 5rem;
+  }
+
+  .info-brand {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    margin-bottom: 2rem;
+  }
+
+  .about-text {
+    font-family: 'Polonium', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: #cccccc;
+    margin-bottom: 1.2rem;
+    max-width: 680px;
+  }
+
+  .inline-link {
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 2rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
-  
-  .bio-container {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 1000px;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .bio-image img {
-    width: 260px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-  }
-  
-  .bio-text {
-    max-width: 600px;
-    font-family: 'FelixTitling', sans-serif;
-  }
-  
-  .bio-text h1 {
-    font-family: 'Polonium', serif;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    text-transform: lowercase;
-    letter-spacing: 0.05em;
-  }
-  
-  .bio-text p {
-    font-size: 0.7rem;
-    line-height: 1.6;
+
+  .inline-link:hover {
     color: #cccccc;
   }
-  
+
+  .section-label {
+    font-family: 'PoloniumBold', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  /* Founders */
+  .founders-grid {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .founder {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .founder-name {
+    font-family: 'Polonium', sans-serif;
+    font-size: 1.1rem;
+    font-weight: normal;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  .founder-role {
+    font-family: 'Polonium', sans-serif;
+    font-size: 0.8rem;
+    color: #888;
+    line-height: 1.5;
+  }
+
+  /* Services */
+  .services-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .service {
+    border-top: 1px solid #222;
+    padding-top: 1.5rem;
+  }
+
+  .service-title {
+    font-family: 'Polonium', sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .service-desc {
+    font-family: 'Polonium', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #aaaaaa;
+    max-width: 580px;
+  }
+
+  @media (max-width: 600px) {
+    .info-page {
+      padding: 7rem 1.5rem 4rem;
+    }
+
+    .founders-grid {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
