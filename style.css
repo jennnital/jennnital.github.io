@@ -303,6 +303,36 @@ a { color: inherit; }
 
 .pricing-note p { color: var(--muted); font-size: 0.98rem; }
 
+/* ---------- Featured tool card ---------- */
+.tool-card {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(255, 255, 255, 0.05), transparent 55%),
+    rgba(255, 255, 255, 0.02);
+  padding: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.tool-title {
+  font-family: var(--font-title);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: normal;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  margin-bottom: 0.6rem;
+}
+
+.tool-sub {
+  color: var(--fg);
+  font-size: 1.1rem;
+  margin-bottom: 1.3rem;
+  max-width: 640px;
+}
+
+.tool-card .body { max-width: 720px; }
+
+.tool-card .btn { margin-top: 0.8rem; }
+
 /* ---------- Founders ---------- */
 .founders-grid {
   display: grid;

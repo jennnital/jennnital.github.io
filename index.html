@@ -15,6 +15,7 @@
     <a href="index.html" class="nav-brand">Assembloid Space</a>
     <div class="nav-links">
       <a href="#services" class="nav-secondary">Services</a>
+      <a href="#tooling" class="nav-secondary">Tooling</a>
       <a href="#founders" class="nav-secondary">Team</a>
       <a href="#work" class="nav-secondary">Work</a>
       <a href="#contact" class="nav-cta">Request a service</a>
@@ -104,6 +105,32 @@
         <a href="terms.html" class="inline-link">Terms &amp; Conditions</a> and
         <a href="refund-policy.html" class="inline-link">Refund &amp; Cancellation Policy</a>.
       </p>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- Featured open-source tooling -->
+  <section class="section" id="tooling">
+    <p class="eyebrow">Open-source tooling</p>
+    <div class="tool-card">
+      <div class="tool-card-body">
+        <h2 class="tool-title">UE-CL1-API</h2>
+        <p class="tool-sub">An Unreal Engine plugin that closes the loop between living neurons and real-time worlds.</p>
+        <p class="body">
+          UE-CL1-API is a closed-loop UDP interface between Cortical Labs' CL1 biocomputer and Unreal Engine —
+          receiving living-neuron spikes as gameplay events and sending electrical stimulation back as feedback. It
+          implements the closed loop from our NeurIPS 2025 paper <em>Assembloid Agency</em> on top of the official
+          CL1 spike firehose, exposing Blueprint and C++ APIs for connection, stimulation, recording, spike
+          read-back, and four-state game encoding/decoding.
+        </p>
+        <p class="body">
+          It is backend-agnostic — the same plugin can drive a CL1 or an equivalent NEST / SNN / EEG stand-in over
+          the same protocol — and ships with a bundled organoid simulator, so you can run the whole pipeline with no
+          hardware.
+        </p>
+        <a href="https://github.com/jennnital/UE-CL1-API" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+      </div>
     </div>
   </section>
 
