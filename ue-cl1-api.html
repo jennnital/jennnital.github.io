@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UE-CL1-API — Assembloid Space</title>
+  <meta name="description" content="UE-CL1-API is an open-source Unreal Engine plugin: a closed-loop UDP bridge between Cortical Labs' CL1 biocomputer and Unreal Engine, implementing the Assembloid Agency API." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">Assembloid Space</a>
+    <div class="nav-links">
+      <a href="index.html#tooling" class="nav-secondary">← Back to site</a>
+      <a href="https://github.com/jennnital/UE-CL1-API" class="nav-cta" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="section" style="padding-top:9rem;padding-bottom:3rem;max-width:960px;">
+    <p class="eyebrow">Open-source tooling · Unreal Engine plugin</p>
+    <h1 class="section-title" style="font-size:clamp(2.4rem,7vw,4rem);">UE-CL1-API</h1>
+    <p class="lead" style="font-size:1.25rem;">
+      A closed-loop UDP interface between Cortical Labs' CL1 biocomputer and Unreal Engine — receive living-neuron
+      spikes as gameplay events, and send electrical stimulation back as feedback.
+    </p>
+    <div class="hero-actions" style="justify-content:flex-start;margin-top:0.5rem;">
+      <a href="https://github.com/jennnital/UE-CL1-API" class="btn btn-solid" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+      <a href="#loop" class="btn btn-ghost">How it works</a>
+    </div>
+  </header>
+
+  <hr class="section-divider" />
+
+  <!-- Closed loop -->
+  <section class="section" id="loop" style="max-width:960px;">
+    <p class="eyebrow">The closed loop</p>
+    <h2 class="section-title">Neurons in, stimulation out</h2>
+    <p class="body">
+      UE-CL1-API builds a UDP bridge between <strong style="font-weight:normal;color:var(--fg);">Unreal Engine</strong>
+      and a <strong style="font-weight:normal;color:var(--fg);">CL1</strong>, implementing the closed loop from our
+      NeurIPS 2025 Creative AI Track paper
+      <a href="https://openreview.net/forum?id=BroaBkQAGa" target="_blank" rel="noopener noreferrer" class="inline-link"><em>Assembloid Agency</em></a>
+      on top of the official CL1 spike firehose.
+    </p>
+    <pre class="code-block" aria-label="Data flow diagram">   CL1 ──(neuronal spiking activity, port 12345)──▶  Unreal Engine
+   CL1 ◀──(electrical stimulation, port 12346)──    Unreal Engine</pre>
+    <p class="body">
+      Unreal only ever sees UDP, so the same plugin can drive a CL1 (via <code>bridge.py</code>) or an equivalent
+      NEST / SNN / EEG stand-in that speaks the same protocol — with identical state and reward mappings across
+      substrates.
+    </p>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- Features -->
+  <section class="section" id="features" style="max-width:960px;">
+    <p class="eyebrow">The API surface</p>
+    <h2 class="section-title">One Unreal subsystem, six capabilities</h2>
+    <p class="body">
+      The plugin exposes a <code>UCl1BridgeSubsystem</code> — usable from both C++ and Blueprint — that handles the
+      CL1 ↔ Unreal bridge and the full Assembloid Agency API.
+    </p>
+    <div class="services-grid">
+      <div class="service">
+        <h3>Connection</h3>
+        <p><code>StartReceiver</code>, <code>StopReceiver</code>, and <code>ConfigureControlTarget</code> open the UDP spike listener and set the outbound control target.</p>
+      </div>
+      <div class="service">
+        <h3>Stimulation</h3>
+        <p><code>SendStimulation</code>, <code>SendStimPlan</code>, <code>SendRewardSignal</code>, and <code>InterruptStim</code> deliver biphasic pulses, coordinated multi-group bursts, and DishBrain-style reinforcement.</p>
+      </div>
+      <div class="service">
+        <h3>Recording</h3>
+        <p><code>RecordSessionData</code> toggles CL1-side HDF5 recording over the bridge; <code>ExportToCSV</code> writes the Unreal-side spike log for offline analysis.</p>
+      </div>
+      <div class="service">
+        <h3>Read-back</h3>
+        <p><code>GetSpikeResponse</code>, <code>GetSpikeRateHz</code>, and <code>GetChannelRates</code> expose live per-channel firing rates for gameplay and visualization.</p>
+      </div>
+      <div class="service">
+        <h3>Events</h3>
+        <p><code>OnSpike</code>, <code>OnSpikeInChannel</code>, and <code>OnSpikeBatch</code> fire in C++ and Blueprint, so spikes can drive gameplay directly.</p>
+      </div>
+      <div class="service">
+        <h3>Game states</h3>
+        <p><code>DecodeState</code> / <code>EncodeState</code> translate four game states ⇄ CL1 activity — a symbol-to-channel encoder and a weightless argmax decoder wired live.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- Quickstart -->
+  <section class="section" id="quickstart" style="max-width:960px;">
+    <p class="eyebrow">Get started</p>
+    <h2 class="section-title">Run it with no hardware</h2>
+    <p class="body">
+      A bundled organoid simulator (LIF and Brian2 substrates) ships with the plugin, so the whole pipeline runs
+      without a CL1. Validate the pipe with synthetic spikes, then point it at real hardware:
+    </p>
+    <pre class="code-block" aria-label="Quickstart commands"># 1. Validate the whole pipe with synthetic spikes (no SDK/hardware):
+python3 bridge.py --selftest --ue-host 127.0.0.1 --ue-port 12345
+
+# 2. Biocompute organoid substrate (the real closed loop):
+python3 bridge.py --organoid --control-listen-port 12346 \
+        --ue-host 127.0.0.1 --ue-port 12345 --random-seed 42
+
+# 3. Against a CL1 / simulator, bidirectional, with a safety envelope:
+python3 bridge.py --ue-host 192.168.1.50 --ue-port 12345 \
+        --control-listen-port 12346 --max-amp 10 --max-channel 63</pre>
+    <p class="body">
+      A safety envelope (Assembloid §5) rejects and drops out-of-range stimulation commands — amplitude, pulse width,
+      pulse count, frequency, and channel — rather than silently altering them. Defaults are conservative; set them to
+      your own IRB / lab protocol.
+    </p>
+    <div class="hero-actions" style="justify-content:flex-start;margin-top:1.5rem;">
+      <a href="https://github.com/jennnital/UE-CL1-API" class="btn btn-solid" target="_blank" rel="noopener noreferrer">Read the full docs on GitHub →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Assembloid Space</div>
+        <address>
+          Hong Kong<br />
+          <a href="mailto:jennleungx@gmail.com" style="color:inherit;">jennleungx@gmail.com</a>
+        </address>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#tooling">Tooling</a></li>
+          <li><a href="index.html#contact">Request a service</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="refund-policy.html">Refund &amp; Cancellation Policy</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 Assembloid Space. All rights reserved.</span>
+      <span class="reg reg-reveal" tabindex="0" role="button" aria-label="Business registration; hover or tap to reveal registered address">Business Registration No. 57978800-000-05-25-2 · Registered in Hong Kong<span class="reveal-address">Registered address: 20D, Block 3, South Horizons, Ap Lei Chau, Hong Kong</span></span>
+    </div>
+  </footer>
+</body>
+</html>

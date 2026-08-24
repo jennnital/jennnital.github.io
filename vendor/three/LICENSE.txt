@@ -1,0 +1,1 @@
+LICENSE: three.js r160, MIT (c) 2010-2024 three.js authors — https://github.com/mrdoob/three.js

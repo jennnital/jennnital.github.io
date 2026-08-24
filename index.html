@@ -7,8 +7,19 @@
   <meta name="description" content="Assembloid Space is a Hong Kong–based research and design consultancy exploring synthetic ecologies of brain, machine, and motion — offering R&D, advisory, and platform/tooling services for biological computing." />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three/three.module.js",
+      "three/addons/": "./vendor/three/jsm/"
+    }
+  }
+  </script>
 </head>
 <body>
+
+  <!-- Scroll-driven 3D hero scene (petri dish + MEA array + organoid metaballs) -->
+  <div id="scene" aria-hidden="true"></div>
 
   <!-- Navigation -->
   <nav class="site-nav">
@@ -22,17 +33,22 @@
     </div>
   </nav>
 
-  <!-- Hero -->
-  <header class="hero">
-    <div class="hero-content">
-      <h1 class="brand">Assembloid Space</h1>
-      <p class="tagline">A research and design consultancy exploring synthetic ecologies of brain, machine, and motion.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-solid">Request a service</a>
-        <a href="#services" class="btn btn-ghost">Explore our work</a>
+  <!-- Hero: scroll-driven scene stage -->
+  <header class="stage" id="stage">
+    <div class="stage-sticky">
+      <div class="hero-content">
+        <h1 class="brand">Assembloid Space</h1>
+        <p class="tagline">A research and design consultancy exploring synthetic ecologies of brain, machine, and motion.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-solid">Request a service</a>
+          <a href="#services" class="btn btn-ghost">Explore our work</a>
+        </div>
       </div>
+      <div class="scroll-cue" aria-hidden="true">scroll to explore ↓</div>
     </div>
   </header>
+
+  <div class="page-content">
 
   <!-- About -->
   <section class="section" id="about">
@@ -129,7 +145,10 @@
           the same protocol — and ships with a bundled organoid simulator, so you can run the whole pipeline with no
           hardware.
         </p>
-        <a href="https://github.com/jennnital/UE-CL1-API" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+        <div class="hero-actions" style="justify-content:flex-start;">
+          <a href="ue-cl1-api.html" class="btn btn-solid">Learn more</a>
+          <a href="https://github.com/jennnital/UE-CL1-API" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+        </div>
       </div>
     </div>
   </section>
@@ -284,6 +303,11 @@
     <h3 class="title-font" style="font-size:1.05rem;margin:2.6rem 0 0.4rem;">Press</h3>
     <ul class="ref-list">
       <li>
+        <span class="ref-meta">National Communication Museum</span>
+        Discussing Actual Intelligence with Dr Brett Kagan and Jenn Leung.
+        <a href="https://ncm.org.au/knowledge/discussing-actual-intelligence-with-dr-brett-kagan-and-jenn-leung" target="_blank" rel="noopener noreferrer" class="inline-link">Read</a>
+      </li>
+      <li>
         <span class="ref-meta">6 January 2026 · LeRandom</span>
         Embodying AI at NeurIPS 2025: Creative AI Track.
         <a href="https://www.lerandom.art/editorial/embodying-ai-at-neurips-2025-creative-ai-track" target="_blank" rel="noopener noreferrer" class="inline-link">Read</a>
@@ -416,6 +440,10 @@
       <span class="reg reg-reveal" tabindex="0" role="button" aria-label="Business registration; hover or tap to reveal registered address">Business Registration No. 57978800-000-05-25-2 · Registered in Hong Kong<span class="reveal-address">Registered address: 20D, Block 3, South Horizons, Ap Lei Chau, Hong Kong</span></span>
     </div>
   </footer>
+
+  </div><!-- /.page-content -->
+
+  <script type="module" src="intro.js"></script>
 
   <script>
     // Progressive-enhancement submit handler.
