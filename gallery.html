@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Assembloid Space</title>
+  <meta name="description" content="A scroll-driven gallery of Assembloid Space projects — exhibitions, publications, tooling and collaborations, each thumbnail rendered as a microelectrode array that resolves under the pointer." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="gallery.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three/three.module.js",
+      "three/addons/": "./vendor/three/jsm/"
+    }
+  }
+  </script>
+  <script src="./vendor/gsap/gsap.min.js"></script>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">Assembloid Space</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-secondary">← Back to site</a>
+      <a href="index.html#contact" class="nav-cta">Request a service</a>
+    </div>
+  </nav>
+
+  <!-- Scroll-driven curve gallery -->
+  <div id="gallery-scene" aria-hidden="true"></div>
+
+  <header class="gallery-stage" id="gallery-stage">
+    <div class="gallery-intro">
+      <p class="eyebrow">Selected projects</p>
+      <h1>Gallery</h1>
+      <p class="lead">
+        Scroll to travel the array. Work drifts past and swells as it comes into focus — click any plane to open
+        the project. The full index sits at the end of the drift.
+      </p>
+    </div>
+  </header>
+
+  <!-- Whatever the camera is currently holding in focus -->
+  <a class="focus-label" id="focus-label" href="#">
+    <span class="focus-meta"></span>
+    <span class="focus-title"></span>
+    <span class="focus-cue">click to open ↗</span>
+  </a>
+
+  <div class="gallery-index">
+    <section class="section" id="index">
+      <p class="eyebrow">The index</p>
+      <h2 class="section-title">Every project, on the array</h2>
+      <p class="body">
+        Each thumbnail is recorded on a microelectrode grid rather than shown outright: at rest it is only a field
+        of electrode sites. Move the pointer across one and the channels under it are stimulated — the image
+        resolves where the array is live, and settles back when the stimulus leaves.
+      </p>
+      <div class="gallery-grid" id="project-index"></div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="section" id="more">
+      <p class="eyebrow">Elsewhere</p>
+      <h2 class="section-title">Publications, talks &amp; press</h2>
+      <p class="body">
+        The written record — papers, talks, workshops and press — is listed in full on the main site, alongside
+        the studio's services and open-source tooling.
+      </p>
+      <div class="hero-actions" style="justify-content:flex-start;">
+        <a href="index.html#work" class="btn btn-solid">Work &amp; press</a>
+        <a href="ue-cl1-api.html" class="btn btn-ghost">UE-CL1-API</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Assembloid Space</div>
+          <address>
+            Hong Kong<br />
+            <a href="mailto:jennleungx@gmail.com" style="color:inherit;">jennleungx@gmail.com</a>
+          </address>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#team">Team</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="index.html#contact">Request a service</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="refund-policy.html">Refund &amp; Cancellation Policy</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <span>© 2026 Assembloid Space. All rights reserved.</span>
+        <span class="reg reg-reveal" tabindex="0" role="button" aria-label="Business registration; hover or tap to reveal registered address">Business Registration No. 57978800-000-05-25-2 · Registered in Hong Kong<span class="reveal-address">Registered address: 20D, Block 3, South Horizons, Ap Lei Chau, Hong Kong</span></span>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="gallery.js"></script>
+</body>
+</html>
