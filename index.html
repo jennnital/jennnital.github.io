@@ -20,6 +20,8 @@
 
   <!-- Scroll-driven 3D hero scene (petri dish + MEA array + organoid metaballs) -->
   <div id="scene" aria-hidden="true"></div>
+  <!-- Channel read-out for the interactive MEA (follows the cursor) -->
+  <div id="mea-readout" class="mea-readout" aria-hidden="true"></div>
 
   <!-- Hero: scroll-driven scene stage -->
   <header class="stage" id="stage">
@@ -97,19 +99,6 @@
         </p>
       </div>
     </div>
-
-    <div class="pricing-note">
-      <h3>Pricing &amp; engagements</h3>
-      <p>
-        Our products and services are bespoke consultancy engagements, tailored to each client and project. Because
-        scope, deliverables, and duration vary widely, every engagement is scoped and quoted individually — as a
-        fixed-price project, an ongoing advisory retainer, or a day rate. Submit a request through the form below
-        and we will respond with a written proposal and a full quotation for your review. No payment is taken until
-        you have received and approved a written proposal and agreed to our
-        <a href="terms.html" class="inline-link">Terms &amp; Conditions</a> and
-        <a href="refund-policy.html" class="inline-link">Refund &amp; Cancellation Policy</a>.
-      </p>
-    </div>
   </section>
 
   <hr class="section-divider" />
@@ -143,10 +132,10 @@
 
   <hr class="section-divider" />
 
-  <!-- Founders / Team -->
-  <section class="section" id="founders">
-    <p class="eyebrow">Team</p>
-    <h2 class="section-title">Founders</h2>
+  <!-- Team -->
+  <section class="section" id="team">
+    <p class="eyebrow">Who we are</p>
+    <h2 class="section-title">Team</h2>
     <div class="founders-grid">
       <div class="founder">
         <h3>Jenn Leung</h3>
@@ -165,15 +154,6 @@
           on a UE-API for brain-on-a-chip platforms was presented at NeurIPS 2025. Since 2025, she has collaborated
           with the biocomputing start-up Cortical Labs to create human–synthetic biological intelligence
           visualizations.
-        </p>
-        <p class="bio">
-          Previously, Jenn was a studio researcher at Antikythera's Cognitive Infrastructures Studio in 2024,
-          supported by the Berggruen Institute, led community tech support for Off World Live, and served as
-          Programme Head at the Architectural Association VS Unit 5 Xalon. Her work has been exhibited at Epic Games
-          Innovation Lab, Ars Electronica, Medialab Matadero, W1 Curates, Tai Kwun Hong Kong, LACMA Digital Leaders,
-          the National Communication Museum (Australia), CIVA Festival, DAE Research Festival, PAF Olomouc, ALife
-          Conference Kyoto, Aksioma, and the Museum of Art in Public Spaces (Køge), among others, and featured in
-          Dazed, TANK Magazine, DIS, SHOWStudio, Art Asia Pacific, COEVAL Magazine, and AQNB.
         </p>
       </div>
       <div class="founder">
@@ -323,6 +303,25 @@
 
   <hr class="section-divider" />
 
+  <!-- Pricing & engagements -->
+  <section class="section" id="pricing">
+    <p class="eyebrow">How we work</p>
+    <h2 class="section-title">Pricing &amp; engagements</h2>
+    <div class="pricing-note">
+      <p>
+        Our products and services are bespoke consultancy engagements, tailored to each client and project. Because
+        scope, deliverables, and duration vary widely, every engagement is scoped and quoted individually — as a
+        fixed-price project, an ongoing advisory retainer, or a day rate. Submit a request through the form below
+        and we will respond with a written proposal and a full quotation for your review. No payment is taken until
+        you have received and approved a written proposal and agreed to our
+        <a href="terms.html" class="inline-link">Terms &amp; Conditions</a> and
+        <a href="refund-policy.html" class="inline-link">Refund &amp; Cancellation Policy</a>.
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
   <!-- Contact / Request a service -->
   <section class="section" id="contact">
     <p class="eyebrow">Get in touch</p>
@@ -412,8 +411,9 @@
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
-          <li><a href="#founders">Team</a></li>
+          <li><a href="#team">Team</a></li>
           <li><a href="#work">Work &amp; press</a></li>
+          <li><a href="#pricing">Pricing</a></li>
           <li><a href="#contact">Request a service</a></li>
         </ul>
       </div>
