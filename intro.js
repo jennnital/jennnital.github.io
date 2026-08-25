@@ -68,13 +68,13 @@ function buildMEA() {
 
 function buildMetaballs() {
   const material = new THREE.MeshPhysicalMaterial({
-    color: 0xf3aec6, roughness: 0.34, metalness: 0.0,
-    transmission: 0.28, thickness: 1.2, clearcoat: 0.6, clearcoatRoughness: 0.4,
-    sheen: 0.7, sheenColor: new THREE.Color(0xffd9e6), ior: 1.35,
+    color: 0xf6ccda, roughness: 0.38, metalness: 0.0,
+    transmission: 0.22, thickness: 1.0, clearcoat: 0.5, clearcoatRoughness: 0.45,
+    sheen: 0.6, sheenColor: new THREE.Color(0xffe3ee), ior: 1.33,
   });
   const mc = new MarchingCubes(56, material, true, false, 90000);
   mc.isolation = 80;
-  mc.scale.set(3.2, 2.2, 3.2);
+  mc.scale.set(2.4, 1.7, 2.4);
   return mc;
 }
 
@@ -136,6 +136,8 @@ function init(gltf) {
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
   camera = new THREE.PerspectiveCamera(42, w / h, 0.1, 100);
+  camera.position.set(0, 3.2, 15.6);
+  camera.lookAt(0, 0.6, 0);
 
   scene.add(new THREE.HemisphereLight(0xffffff, 0xe7c3d0, 1.7));
   const key = new THREE.DirectionalLight(0xffffff, 1.6);
@@ -172,20 +174,21 @@ function onPointerMove(e) {
 }
 
 function layout(p) {
-  // p = 0 → stacked/assembled; p = 1 → exploded apart.
-  const sep = p;
-  dish.position.y = 0 - sep * 3.4;
-  mea.position.y = 0.42 + sep * 0.5;
-  metaballs.position.y = 1.5 + sep * 5.6 + Math.sin(clock.elapsedTime * 0.6) * 0.12;
+  // At rest (p = 0) the stack already reads as a gentle "bloom" — small
+  // organoids up top, title band in the middle, MEA + dish below. Scrolling
+  // pushes the three layers further apart.
+  dish.position.y = -2.3 - p * 2.6;
+  mea.position.y = 0.15 + p * 0.7;
+  metaballs.position.y = 3.15 + p * 4.4 + Math.sin(clock.elapsedTime * 0.6) * 0.12;
 
   // Camera dollies back and up so everything stays framed as it spreads.
-  const camZ = 12.5 + sep * 7.5;
-  const camY = 4.2 + sep * 3.6 + pointer.y * 0.35;
+  const camZ = 15.6 + p * 7.0;
+  const camY = 3.2 + p * 3.4 + pointer.y * 0.35;
   const camX = pointer.x * 0.9;
   camera.position.x += (camX - camera.position.x) * 0.06;
   camera.position.y += (camY - camera.position.y) * 0.06;
   camera.position.z += (camZ - camera.position.z) * 0.06;
-  camera.lookAt(0, 1.4 + sep * 1.6, 0);
+  camera.lookAt(0, 0.6 + p * 1.9, 0);
 }
 
 function fadeHero(p) {
